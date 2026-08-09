@@ -1,15 +1,25 @@
 # Bazel rules for GHDL
 
-[![Test status](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/test.yml/badge.svg)](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/test.yml)
-[![Publish BCR status](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/publish-bcr.yml/badge.svg)](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/publish-bcr.yml)
-[![Publish status](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/publish.yml/badge.svg)](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/publish.yml)
-[![Tag and Release status](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/tag-and-release.yml/badge.svg)](https://github.com/filmil/bazel_rules_ghdl/actions/workflows/tag-and-release.yml)
+[![Test status](https://github.com/hw-bzl/rules_ghdl/actions/workflows/test.yml/badge.svg)](https://github.com/hw-bzl/rules_ghdl/actions/workflows/test.yml)
+[![Publish BCR status](https://github.com/hw-bzl/rules_ghdl/actions/workflows/publish-bcr.yml/badge.svg)](https://github.com/hw-bzl/rules_ghdl/actions/workflows/publish-bcr.yml)
+[![Publish status](https://github.com/hw-bzl/rules_ghdl/actions/workflows/publish.yml/badge.svg)](https://github.com/hw-bzl/rules_ghdl/actions/workflows/publish.yml)
+[![Tag and Release status](https://github.com/hw-bzl/rules_ghdl/actions/workflows/tag-and-release.yml/badge.svg)](https://github.com/hw-bzl/rules_ghdl/actions/workflows/tag-and-release.yml)
 
 This repository contains a [`bazel`][bb] rule set for running [`ghdl`][gg], the
 VHDL simulator and synthesizer.
 
 [bb]: https://bazel.build
 [gg]: https://github.com/ghdl/ghdl
+
+> **This ruleset moved.** It was previously developed at
+> `filmil/bazel_rules_ghdl` and now lives at `hw-bzl/rules_ghdl`, alongside the
+> other hardware-design rulesets in the [`hw-bzl`][hb] organization. Version
+> `2.0.0` is the first release from the new home; the major bump reflects the
+> move, since the release archive is named after the repository and is now
+> `rules_ghdl-vX.Y.Z.zip` rather than `bazel_rules_ghdl-vX.Y.Z.zip`. Old links
+> and release URLs continue to work through GitHub's redirects.
+
+[hb]: https://github.com/hw-bzl
 
 ## Prerequisites
 
@@ -53,8 +63,14 @@ enabling robust compilation across different sandboxed actions.
 
 In general, see [integration/](integration/) for example use.
 
-The module is available through my bazel registry at
-https://github.com/filmil/bazel-registry.
+The module is published to the [Bazel Central Registry][bcr], so no registry
+override is needed:
+
+```starlark
+bazel_dep(name = "rules_ghdl", version = "2.0.0")
+```
+
+[bcr]: https://registry.bazel.build/modules/rules_ghdl
 
 ### Declaring a VHDL Library and Compile Target
 

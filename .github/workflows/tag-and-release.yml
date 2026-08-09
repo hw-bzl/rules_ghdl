@@ -7,9 +7,10 @@
 # The workflow can be run manually, otherwise it runs once a week.
 name: Tag and Release
 
+# Releases are manual (workflow_dispatch) while publishing is being re-wired
+# for the hw-bzl org; the previous monthly `schedule:` trigger was removed so a
+# broken publish leg cannot fail silently every month.
 on:
-  schedule:
-    - cron: '0 0 23 * *'
   workflow_dispatch:
 
 jobs:

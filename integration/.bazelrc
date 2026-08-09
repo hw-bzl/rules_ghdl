@@ -1,5 +1,4 @@
 common \
-  --registry=https://raw.githubusercontent.com/filmil/bazel-registry/main \
   --registry=https://bcr.bazel.build
 
 try-import %workspace%/user.bazelrc
