@@ -16,53 +16,50 @@ on:
 jobs:
   tag:
     runs-on: ubuntu-latest
+    # A repository whose default workflow permission is read-only fails the
+    # tag push with "Resource not accessible by integration", after the
+    # action has already printed the version it computed.
+    permissions:
+      contents: write
     outputs:
       tag_name: ${{ steps.tag_version.outputs.new_tag }}
     steps:
-      - name: Setup bazel
-        uses: bazel-contrib/setup-bazel@0.19.0
-        with:
-          bazelisk-cache: true
-          disk-cache: ${{ github.workflow }}
-          repository-cache: true
       - name: Checkout
-        uses: actions/checkout@v3
-      # TODO(filmil): Re-enable
-      #- name: "Test"
-        #run: "cd integration && bazel build //..."
+        uses: actions/checkout@v4
+        with:
+          # The tag action analyses the commits since the previous tag. With
+          # the default shallow checkout it finds none, reports "Analysis of 0
+          # commits complete: no release", and emits an empty new_tag.
+          fetch-depth: 0
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_branches: main
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          generateReleaseNotes: true
-      - name: Get release tag
-        id: get_version
-        run: echo "VERSION=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_ENV
-      - name: Get repo name
-        id: get_repo_name
-        run: echo "REPO_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-      - name: "Publish source archive"
-        uses: thedoctor0/zip-release@0.7.5
-        with:
-          type: 'zip'
-          filename: "${{ env.REPO_NAME }}-${{ env.VERSION }}.zip"
-          exclusions: '*.git* /*node_modules/* .editorconfig /bazel-*'
-      - name: "Upload source archive"
-        uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          allowUpdates: true
-          artifacts: "${{ env.REPO_NAME }}-${{ env.VERSION }}.zip"
 
-  # This workflow waits for binary artifacts to be published.
+  # Runs the tests, builds the release archive through
+  # .github/workflows/release_prep.sh, attests it with
+  # actions/attest-build-provenance, and creates the GitHub release.
+  #
+  # This reusable workflow is not interchangeable with a local equivalent.
+  # The Bazel Central Registry verifies the source archive attestation with
+  # slsa-verifier against a hard-coded builder id, set in tools/slsa.py of
+  # bazelbuild/bazel-central-registry, and that id names release_ruleset.yaml.
+  source_release:
+    needs: tag
+    if: ${{ needs.tag.outputs.tag_name != '' }}
+    permissions:
+      contents: write      # upload release files
+      id-token: write      # attest provenance
+      attestations: write  # attest provenance
+    uses: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v7.7.0
+    with:
+      tag_name: ${{ needs.tag.outputs.tag_name }}
+      release_files: |
+        rules_ghdl-${{ needs.tag.outputs.tag_name }}.zip
+      prerelease: false
+
   publish:
     needs: tag
     uses: ./.github/workflows/publish.yml
