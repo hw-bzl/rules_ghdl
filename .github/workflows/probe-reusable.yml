@@ -1,0 +1,19 @@
+# Temporary probe. `if: false` means the job never runs, but GitHub still
+# resolves every referenced reusable workflow when the run starts, so a
+# startup failure here means this repository cannot reference that workflow.
+name: Probe reusable workflow
+on:
+  pull_request:
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "startup validation reached the jobs"
+
+  remote_ref:
+    if: false
+    uses: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v7.7.0
+    with:
+      tag_name: v0.0.0
+      release_files: nothing.zip
