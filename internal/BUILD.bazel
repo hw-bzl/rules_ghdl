@@ -50,6 +50,7 @@ bzl_library(
         ":providers",
         ":toolchain",
         ":utils",
+        "@rules_verilog//verilog:verilog_info_bzl",
         "@rules_vhdl//vhdl:defs_bzl",
     ],
 )
@@ -87,6 +88,7 @@ bzl_library(
         ":providers",
         ":toolchain",
         ":utils",
+        "@rules_verilog//verilog:verilog_info_bzl",
         "@rules_vhdl//vhdl:defs_bzl",
     ],
 )

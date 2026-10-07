@@ -5,9 +5,9 @@ module(
 )
 
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
-bazel_dep(name = "ghdl", version = "6.0.0.bcr.2")
+bazel_dep(name = "ghdl", version = "6.0.0.bcr.5")
 bazel_dep(name = "platforms", version = "1.1.0")
-bazel_dep(name = "rules_vhdl", version = "0.3.0")
+bazel_dep(name = "rules_vhdl", version = "0.4.1")
 
 # Documentation generation dependencies
 bazel_dep(name = "gazelle", version = "0.51.3", dev_dependency = True)
@@ -15,6 +15,10 @@ bazel_dep(name = "buildifier_prebuilt", version = "8.5.1.2", dev_dependency = Tr
 bazel_dep(name = "bazel_lib", version = "3.3.1", dev_dependency = True)
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.9.0", dev_dependency = True)
 bazel_dep(name = "stardoc", version = "0.8.1", dev_dependency = True)
+# rules_vhdl 0.4.1 publishes a `vhdl_library_bzl` that omits its dependency on
+# `@rules_verilog//verilog:verilog_info_bzl`. Stardoc needs the full transitive
+# closure, so the gap is filled from here for documentation builds only.
+bazel_dep(name = "rules_verilog", version = "1.4.1", dev_dependency = True)
 
 # Added to avoid rebuilding protobuf from source.
 bazel_dep(name = "protobuf", version = "35.1", dev_dependency = True)
