@@ -1,13 +1,13 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-
+Public entry point for `ghdl_analyze`.
 
 <a id="ghdl_analyze"></a>
 
 ## ghdl_analyze
 
 <pre>
-load("@rules_ghdl//internal:ghdl_analyze.bzl", "ghdl_analyze")
+load("@rules_ghdl//ghdl:ghdl_analyze.bzl", "ghdl_analyze")
 
 ghdl_analyze(<a href="#ghdl_analyze-name">name</a>, <a href="#ghdl_analyze-deps">deps</a>, <a href="#ghdl_analyze-args">args</a>, <a href="#ghdl_analyze-library">library</a>, <a href="#ghdl_analyze-standard">standard</a>)
 </pre>

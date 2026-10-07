@@ -1,0 +1,31 @@
+load("@bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+
+# One document per public `.bzl` in //ghdl. Regenerate with
+# `bazel run //docs:update_docs`; `bazel test //...` fails when they are stale.
+_PUBLIC_FILES = [
+    "ghdl_analyze",
+    "ghdl_elaborate",
+    "ghdl_info",
+    "ghdl_test",
+    "ghdl_toolchain",
+    "ghdl_verilog",
+]
+
+[
+    stardoc(
+        name = "{}_doc".format(name),
+        out = "gen.{}.md".format(name),
+        input = "//ghdl:{}.bzl".format(name),
+        deps = ["//ghdl:{}".format(name)],
+    )
+    for name in _PUBLIC_FILES
+]
+
+write_source_files(
+    name = "update_docs",
+    files = {
+        "{}.md".format(name): ":{}_doc".format(name)
+        for name in _PUBLIC_FILES
+    },
+)

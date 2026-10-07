@@ -1,6 +1,6 @@
-load("//internal:utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
-load("//internal:providers.bzl", "GhdlLibraryInfo", "ElaborateProvider")
-load("//internal:toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
+load(":utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
+load(":providers.bzl", "GhdlLibraryInfo", "GhdlElaborateInfo")
+load(":toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
 
 def _ghdl_elaborate_impl(ctx):
     ghdl_info = ctx.toolchains[GHDL_TOOLCHAIN_TYPE].ghdl_info
@@ -67,7 +67,7 @@ def _ghdl_elaborate_impl(ctx):
             library_dir = out_dir,
             transitive_sources = ghdl_lib_info.transitive_sources,
         ),
-        ElaborateProvider(entity = ctx.attr.name),
+        GhdlElaborateInfo(entity = ctx.attr.name),
         DefaultInfo(
             files = depset([out_dir]),
             runfiles = runfiles,

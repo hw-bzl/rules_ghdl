@@ -1,13 +1,13 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-
+Public entry point for `ghdl_verilog`.
 
 <a id="ghdl_verilog"></a>
 
 ## ghdl_verilog
 
 <pre>
-load("@rules_ghdl//internal:ghdl_verilog.bzl", "ghdl_verilog")
+load("@rules_ghdl//ghdl:ghdl_verilog.bzl", "ghdl_verilog")
 
 ghdl_verilog(<a href="#ghdl_verilog-name">name</a>, <a href="#ghdl_verilog-deps">deps</a>, <a href="#ghdl_verilog-arch">arch</a>, <a href="#ghdl_verilog-args">args</a>, <a href="#ghdl_verilog-generics">generics</a>, <a href="#ghdl_verilog-lib">lib</a>, <a href="#ghdl_verilog-standard">standard</a>, <a href="#ghdl_verilog-unit">unit</a>, <a href="#ghdl_verilog-vendor">vendor</a>)
 </pre>

@@ -1,6 +1,6 @@
-load("//internal:utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
-load("//internal:providers.bzl", "GhdlLibraryInfo")
-load("//internal:toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
+load(":utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
+load(":providers.bzl", "GhdlLibraryInfo")
+load(":toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
 
 def _ghdl_verilog_impl(ctx):
     ghdl_info = ctx.toolchains[GHDL_TOOLCHAIN_TYPE].ghdl_info

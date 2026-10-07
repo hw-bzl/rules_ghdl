@@ -1,0 +1,73 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+package(default_visibility = ["//ghdl:__subpackages__"])
+
+exports_files(["unittest.tpl.sh"])
+
+bzl_library(
+    name = "ghdl_analyze",
+    srcs = ["ghdl_analyze.bzl"],
+    deps = [
+        ":providers",
+        ":toolchain",
+        ":utils",
+        "@rules_verilog//verilog:verilog_info_bzl",
+        "@rules_vhdl//vhdl:defs_bzl",
+    ],
+)
+
+bzl_library(
+    name = "ghdl_elaborate",
+    srcs = ["ghdl_elaborate.bzl"],
+    deps = [
+        ":providers",
+        ":toolchain",
+        ":utils",
+    ],
+)
+
+bzl_library(
+    name = "ghdl_test",
+    # Gazelle skips `*_test.bzl` files, so this entry is maintained by hand.
+    srcs = ["ghdl_test.bzl"],  # keep
+    deps = [
+        ":ghdl_analyze",
+        ":ghdl_elaborate",
+        ":providers",
+        ":toolchain",
+        ":utils",
+        "@rules_verilog//verilog:verilog_info_bzl",
+        "@rules_vhdl//vhdl:defs_bzl",
+    ],
+)
+
+bzl_library(
+    name = "ghdl_verilog",
+    srcs = ["ghdl_verilog.bzl"],
+    deps = [
+        ":providers",
+        ":toolchain",
+        ":utils",
+    ],
+)
+
+bzl_library(
+    name = "toolchain",
+    srcs = ["toolchain.bzl"],
+    deps = [":providers"],
+)
+
+bzl_library(
+    name = "macros",
+    srcs = ["macros.bzl"],
+)
+
+bzl_library(
+    name = "providers",
+    srcs = ["providers.bzl"],
+)
+
+bzl_library(
+    name = "utils",
+    srcs = ["utils.bzl"],
+)

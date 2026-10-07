@@ -1,11 +1,11 @@
-load("//internal:providers.bzl", "GHDLInfo")
+load(":providers.bzl", "GhdlToolchainInfo")
 
-GHDL_TOOLCHAIN_TYPE = "@rules_ghdl//build/ghdl:toolchain_type"
+GHDL_TOOLCHAIN_TYPE = Label("//ghdl:toolchain_type")
 VHDL_STANDARD_DEFAULT = "08"
 
 def _ghdl_toolchain_impl(ctx):
   toolchain_info = platform_common.ToolchainInfo(
-    ghdl_info = GHDLInfo(
+    ghdl_info = GhdlToolchainInfo(
       analyzer = ctx.attr.analyzer,
       vhdl_libs = ctx.files.vhdl_libs,
     ),

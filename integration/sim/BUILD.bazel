@@ -1,5 +1,5 @@
 load("@rules_vhdl//vhdl:defs.bzl", "vhdl_library")
-load("@rules_ghdl//:rules.bzl", "ghdl_analyze", "ghdl_test")
+load("@rules_ghdl//ghdl:defs.bzl", "ghdl_analyze", "ghdl_test")
 
 vhdl_library(
     name = "sim_src",

@@ -1,8 +1,8 @@
-load("//internal:utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
-load("//internal:providers.bzl", "GhdlLibraryInfo", "ElaborateProvider")
-load("//internal:toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
-load("//internal:ghdl_analyze.bzl", "ghdl_analyze")
-load("//internal:ghdl_elaborate.bzl", "ghdl_elaborate")
+load(":utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
+load(":providers.bzl", "GhdlLibraryInfo", "GhdlElaborateInfo")
+load(":toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
+load(":ghdl_analyze.bzl", "ghdl_analyze")
+load(":ghdl_elaborate.bzl", "ghdl_elaborate")
 load("@rules_vhdl//vhdl:defs.bzl", "vhdl_library")
 
 def _get_ghdl_vhdl_libs_and_prefix_runfiles(ghdl_info, std):
@@ -24,7 +24,7 @@ def _ghdl_internal_test_impl(ctx):
     active_libs, prefix_dir = _get_ghdl_vhdl_libs_and_prefix_runfiles(ghdl_info, std)
     
     ghdl_lib_info = ctx.attr.entity[GhdlLibraryInfo]
-    elaborate_provider = ctx.attr.entity[ElaborateProvider]
+    elaborate_provider = ctx.attr.entity[GhdlElaborateInfo]
     library_name = ghdl_lib_info.library_name
     entity = elaborate_provider.entity
     
@@ -70,14 +70,14 @@ _ghdl_internal_test = rule(
     implementation = _ghdl_internal_test_impl,
     attrs = {
         "entity": attr.label(
-            providers = [GhdlLibraryInfo, ElaborateProvider],
+            providers = [GhdlLibraryInfo, GhdlElaborateInfo],
             doc = "The elaborated entity to test.",
         ),
         "standard": attr.string(
             default = VHDL_STANDARD_DEFAULT,
         ),
         "_template": attr.label(
-            default = Label("//build/ghdl:unittest.tpl.sh"),
+            default = Label("//ghdl/private:unittest.tpl.sh"),
             allow_single_file = True,
         ),
     },

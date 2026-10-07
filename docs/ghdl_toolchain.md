@@ -1,13 +1,13 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-
+Public entry point for `ghdl_toolchain`.
 
 <a id="ghdl_toolchain"></a>
 
 ## ghdl_toolchain
 
 <pre>
-load("@rules_ghdl//internal:toolchain.bzl", "ghdl_toolchain")
+load("@rules_ghdl//ghdl:ghdl_toolchain.bzl", "ghdl_toolchain")
 
 ghdl_toolchain(<a href="#ghdl_toolchain-name">name</a>, <a href="#ghdl_toolchain-analyzer">analyzer</a>, <a href="#ghdl_toolchain-vhdl_libs">vhdl_libs</a>)
 </pre>
