@@ -1,45 +1,10 @@
-load("@bazel_lib//:bzl_library.bzl", "bzl_library")
-load("@bazel_lib//lib:write_source_files.bzl", "write_source_files")
-load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
-load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+exports_files([
+    "LICENSE",
+    "MODULE.bazel",
+])
 
-gazelle(
+# Run from the repository root as `bazel run //:gazelle`.
+alias(
     name = "gazelle",
-    gazelle = ":gazelle_bin",
-)
-
-gazelle_binary(
-    name = "gazelle_bin",
-    languages = DEFAULT_LANGUAGES + [
-        "@bazel_skylib_gazelle_plugin//bzl",
-    ],
-)
-
-bzl_library(
-    name = "rules_bzl",
-    srcs = ["rules.bzl"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//internal:providers",
-        "//internal:toolchain",
-        "//internal:ghdl_analyze",
-        "//internal:ghdl_elaborate",
-        "//internal:ghdl_test",
-        "//internal:ghdl_verilog",
-        "//internal:macros",
-    ],
-)
-
-stardoc(
-    name = "rules_md",
-    out = "gen.rules.md",
-    input = "rules.bzl",
-    deps = [":rules_bzl"],
-)
-
-write_source_files(
-    name = "update_docs",
-    files = {
-        "rules.md": "//:rules_md",
-    },
+    actual = "//tools:gazelle",
 )

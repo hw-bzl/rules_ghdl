@@ -1,0 +1,69 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+package(default_visibility = ["//visibility:public"])
+
+# Toolchain type consumed by every GHDL rule. `//ghdl/toolchains` registers a
+# toolchain for it backed by the `ghdl` module from the Bazel Central Registry;
+# downstream users may register their own `ghdl_toolchain` against it instead.
+toolchain_type(name = "toolchain_type")
+
+exports_files([
+    "defs.bzl",
+    "ghdl_analyze.bzl",
+    "ghdl_elaborate.bzl",
+    "ghdl_info.bzl",
+    "ghdl_test.bzl",
+    "ghdl_toolchain.bzl",
+    "ghdl_verilog.bzl",
+])
+
+bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    deps = [
+        ":ghdl_analyze",
+        ":ghdl_elaborate",
+        ":ghdl_info",
+        ":ghdl_test",
+        ":ghdl_toolchain",
+        ":ghdl_verilog",
+        "//ghdl/private:macros",
+    ],
+)
+
+bzl_library(
+    name = "ghdl_analyze",
+    srcs = ["ghdl_analyze.bzl"],
+    deps = ["//ghdl/private:ghdl_analyze"],
+)
+
+bzl_library(
+    name = "ghdl_elaborate",
+    srcs = ["ghdl_elaborate.bzl"],
+    deps = ["//ghdl/private:ghdl_elaborate"],
+)
+
+bzl_library(
+    name = "ghdl_info",
+    srcs = ["ghdl_info.bzl"],
+    deps = ["//ghdl/private:providers"],
+)
+
+bzl_library(
+    name = "ghdl_test",
+    # Gazelle skips `*_test.bzl` files, so this entry is maintained by hand.
+    srcs = ["ghdl_test.bzl"],  # keep
+    deps = ["//ghdl/private:ghdl_test"],
+)
+
+bzl_library(
+    name = "ghdl_toolchain",
+    srcs = ["ghdl_toolchain.bzl"],
+    deps = ["//ghdl/private:toolchain"],
+)
+
+bzl_library(
+    name = "ghdl_verilog",
+    srcs = ["ghdl_verilog.bzl"],
+    deps = ["//ghdl/private:ghdl_verilog"],
+)

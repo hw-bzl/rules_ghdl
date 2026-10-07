@@ -32,7 +32,7 @@ Everything else will be downloaded for use the first time you run the build.
 
 ## Documentation
 
-See [rules.md](rules.md) for the generated rule documentation.
+See [docs/](docs/) for the generated rule documentation, one file per public `.bzl`.
 
 ## Architecture & Integration with `rules_vhdl`
 
@@ -76,7 +76,7 @@ bazel_dep(name = "rules_ghdl", version = "2.0.0")
 
 ```starlark
 load("@rules_vhdl//vhdl:defs.bzl", "vhdl_library")
-load("@rules_ghdl//:rules.bzl", "ghdl_analyze")
+load("@rules_ghdl//ghdl:defs.bzl", "ghdl_analyze")
 
 # 1. Group the sources
 vhdl_library(
@@ -96,7 +96,7 @@ ghdl_analyze(
 ### Running VHDL Tests
 
 ```starlark
-load("@rules_ghdl//:rules.bzl", "ghdl_test")
+load("@rules_ghdl//ghdl:defs.bzl", "ghdl_test")
 
 ghdl_test(
     name = "hello_world_test",

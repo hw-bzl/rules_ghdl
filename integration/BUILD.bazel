@@ -1,5 +1,5 @@
 load("@rules_vhdl//vhdl:defs.bzl", "vhdl_library")
-load("@rules_ghdl//:rules.bzl", "ghdl_analyze", "ghdl_verilog")
+load("@rules_ghdl//ghdl:defs.bzl", "ghdl_analyze", "ghdl_verilog")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 vhdl_library(

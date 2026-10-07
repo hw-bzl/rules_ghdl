@@ -1,4 +1,4 @@
-load("@rules_ghdl//:rules.bzl", "ghdl_test")
+load("@rules_ghdl//ghdl:defs.bzl", "ghdl_test")
 
 ghdl_test(
     name = "hello_world_test",

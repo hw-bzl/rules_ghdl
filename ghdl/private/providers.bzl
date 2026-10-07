@@ -1,4 +1,4 @@
-GHDLInfo = provider(
+GhdlToolchainInfo = provider(
     doc = "Information on how to run GHDL for VHDL analysis, elaboration and simulation.",
     fields = {
       "analyzer": "The GHDL executable file.",
@@ -16,7 +16,7 @@ GhdlLibraryInfo = provider(
     },
 )
 
-ElaborateProvider = provider(
+GhdlElaborateInfo = provider(
     doc = "Provides information about an elaborated VHDL entity.",
     fields = {
         "entity": "string: The name of the elaborated entity.",

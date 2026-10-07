@@ -1,7 +1,7 @@
-load("//internal:utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
-load("//internal:providers.bzl", "GhdlLibraryInfo")
+load(":utils.bzl", "get_ghdl_vhdl_libs_and_prefix")
+load(":providers.bzl", "GhdlLibraryInfo")
 load("@rules_vhdl//vhdl:defs.bzl", "VhdlInfo")
-load("//internal:toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
+load(":toolchain.bzl", "GHDL_TOOLCHAIN_TYPE", "VHDL_STANDARD_DEFAULT")
 
 def _ghdl_analyze_impl(ctx):
     ghdl_info = ctx.toolchains[GHDL_TOOLCHAIN_TYPE].ghdl_info

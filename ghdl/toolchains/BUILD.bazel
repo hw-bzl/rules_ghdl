@@ -1,0 +1,23 @@
+load("//ghdl:ghdl_toolchain.bzl", "ghdl_toolchain")
+
+package(default_visibility = ["//visibility:public"])
+
+# GHDL built from source by the `ghdl` module on the Bazel Central Registry.
+# That module selects its backend and platform specifics internally, so the
+# toolchain carries no execution or target constraints of its own.
+ghdl_toolchain(
+    name = "ghdl_bcr",
+    analyzer = "@ghdl//:ghdl",
+    vhdl_libs = [
+        "@ghdl//:vhdl_libs_v87",
+        "@ghdl//:vhdl_libs_v93",
+        "@ghdl//:vhdl_libs_v08",
+        "@ghdl//:vhdl_libs_v19",
+    ],
+)
+
+toolchain(
+    name = "ghdl_bcr_toolchain",
+    toolchain = ":ghdl_bcr",
+    toolchain_type = "//ghdl:toolchain_type",
+)

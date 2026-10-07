@@ -1,13 +1,13 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-
+Public entry point for `ghdl_test`.
 
 <a id="ghdl_test"></a>
 
 ## ghdl_test
 
 <pre>
-load("@rules_ghdl//internal:ghdl_test.bzl", "ghdl_test")
+load("@rules_ghdl//ghdl:ghdl_test.bzl", "ghdl_test")
 
 ghdl_test(<a href="#ghdl_test-name">name</a>, <a href="#ghdl_test-srcs">srcs</a>, <a href="#ghdl_test-deps">deps</a>, <a href="#ghdl_test-standard">standard</a>, <a href="#ghdl_test-args">args</a>, <a href="#ghdl_test-entity">entity</a>, <a href="#ghdl_test-entities">entities</a>)
 </pre>

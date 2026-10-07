@@ -16,7 +16,7 @@ def get_ghdl_vhdl_libs_and_prefix(ghdl_info, std):
     Finds the GHDL standard libraries for the given VHDL standard and calculates GHDL_PREFIX.
 
     Args:
-        ghdl_info: GHDLInfo provider.
+        ghdl_info: GhdlToolchainInfo provider.
         std: The VHDL standard string (e.g. '08').
 
     Returns:
